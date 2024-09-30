@@ -1,1 +1,21 @@
-
+This data is a public dataset , the Cost table, Bike_Share_yr_0, & Bike_Share_yr_1 , are the original tables, the profit table has been added after reorganizing the data using the following SQL Entry:
+Profit Table SQL:
+With A AS (
+Select * From bike_share_yr_0
+Union all
+Select * from bike_share_yr_1)
+Select 
+dteday,
+season,
+A.yr,
+hr,
+riders,
+rider_type,
+price,
+COGS,
+price*riders as Revenue,
+COGS*riders as Expense,
+(price*riders ) - (COGS*riders) as profit
+from A
+Left join cost_table B1
+on A.yr = B1.yr
